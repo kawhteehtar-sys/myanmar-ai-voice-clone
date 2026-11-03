@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: myanmar-ai-voice-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: APP_TOKEN
+        generateValue: true
+      - key: FRONTEND_ORIGIN
+        sync: false
