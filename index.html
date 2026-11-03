@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myanmar AI Voice Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d1b;color:#fff;font-family:Arial,sans-serif;padding:20px}
+main{max-width:700px;margin:auto}
+h1{color:#9d8cff;text-align:center}
+p{color:#aeb9d0}
+.card{background:#151e32;border:1px solid #34415c;border-radius:16px;padding:20px;margin:18px 0}
+label{display:block;margin:14px 0 7px}
+textarea,input,select{width:100%;padding:13px;border-radius:9px;border:1px solid #465573;background:#0b1324;color:white}
+textarea{height:130px}
+button{background:#795cff;color:white;border:0;border-radius:9px;padding:13px 18px;margin-top:15px;font-weight:bold}
+button:active{opacity:.7}
+.note{font-size:13px;color:#ffcc80}
+</style>
+</head>
+<body>
+<main>
+<h1>🇲🇲 Myanmar AI Voice Studio</h1>
+<p style="text-align:center">မြန်မာ AI အသံထုတ်လုပ်ရေး Studio</p>
+
+<div class="card">
+<h2>🎙️ AI Voice Generator</h2>
+<label>မြန်မာစာ ရိုက်ထည့်ပါ</label>
+<textarea id="script" placeholder="ဒီနေရာမှာ မြန်မာစာ ရိုက်ထည့်ပါ..."></textarea>
+<label>အမျိုးသားအသံ</label>
+<select id="voice">
+<option value="male1">အမျိုးသားအသံ ၁</option>
+<option value="male2">အမျိုးသားအသံ ၂</option>
+<option value="male3">အမျိုးသားအသံ ၃</option>
+</select>
+<label>အသံအမြန်နှုန်း</label>
+<input id="speed" type="range" min="0.5" max="2" step="0.1" value="1">
+<button onclick="speak()">🔊 အသံနားထောင်ရန်</button>
+<button onclick="stop()">⏹️ ရပ်ရန်</button>
+<p class="note">မှတ်ချက် - ဒီအဆင့်မှာ ဖုန်းရဲ့ ရရှိနိုင်တဲ့ အသံစနစ်ကို အသုံးပြုပါတယ်။ မြန်မာအသံရရှိမှုက ဖုန်းပေါ်မူတည်ပါတယ်။</p>
+</div>
+
+<div class="card">
+<h2>🎤 Personal Voice Cloning</h2>
+<p>ကိုယ်ပိုင်အသံနမူနာ ဖိုင်ရွေးပါ။</p>
+<input type="file" accept="audio/*" id="voiceFile">
+<p class="note">Voice Cloning အမှန်တကယ်လုပ်ရန် AI Server ချိတ်ဆက်ရန် လိုအပ်ပါသည်။</p>
+</div>
+
+<div class="card">
+<h2>⚙️ AI Voice Settings</h2>
+<label>အသံအနိမ့်အမြင့်</label>
+<input type="range" min="0.5" max="2" step="0.1" value="1" id="pitch">
+<p>နောက်ပိုင်းမှာ အသံအသစ်ရွေးချယ်ခြင်း၊ Clone အသံပြောင်းခြင်းတို့ ထည့်သွင်းနိုင်ပါမယ်။</p>
+</div>
+</main>
+<script>
+function speak(){
+let t=document.getElementById('script').value;
+if(!t){alert('မြန်မာစာ ရိုက်ထည့်ပါ');return;}
+if(!('speechSynthesis' in window)){alert('ဒီဖုန်းမှာ အသံစနစ်မရနိုင်ပါ');return;}
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(t);
+u.lang='my-MM';
+u.rate=Number(document.getElementById('speed').value);
+u.pitch=Number(document.getElementById('pitch').value);
+speechSynthesis.speak(u);
+}
+function stop(){speechSynthesis.cancel();}
+</script>
+</body>
+</html>
